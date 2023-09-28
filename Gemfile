@@ -69,6 +69,16 @@ end
 group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem 'capybara'
+  gem 'database_cleaner'
+  gem 'rails-controller-testing'
+  gem 'rspec-rails'
   gem 'selenium-webdriver'
   gem 'webdrivers'
 end
+
+gem 'devise'
+gem 'devise_token_auth'
+gem 'omniauth'
+gem 'rack-cors'
+gem 'rswag'
+gem 'sprockets'
