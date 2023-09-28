@@ -139,12 +139,12 @@ To run tests, run the following command:
 👤 **Charles Andrews**
 
 - GitHub: [@forloop94](https://github.com/forloop94)
-- LinkedIn: [LinkedIn](https://linkedin.com/in/linkedinhandle)
+- LinkedIn: [LinkedIn](https://linkedin.com/in/andrewsCharlesUwem)
 
 👤 **Emmanuel Tofa**
 
 - GitHub: [@uno36](https://github.com/uno36)
-- LinkedIn: [LinkedIn](https://linkedin.com/in/linkedinhandle)
+- LinkedIn: [LinkedIn](https://linkedin.com/in/emmanuel-tofa-673b2516a)
 
 👤 **Sandeep Ghosh**
 
