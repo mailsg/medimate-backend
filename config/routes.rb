@@ -1,7 +1,10 @@
 Rails.application.routes.draw do
   mount_devise_token_auth_for 'User', at: 'auth'
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
-
-  # Defines the root path route ("/")
-  # root "articles#index"
+  namespace :api do
+    namespace :v1, defaults: { format: 'json' } do
+      resources :doctors, only: [:index, :show, :new, :create, :destroy] do
+        resources :appointments, only: [:index, :show, :new, :create, :destroy]
+      end 
+    end
+  end
 end
