@@ -4,7 +4,7 @@ Rails.application.routes.draw do
     namespace :v1, defaults: { format: 'json' } do
       resources :doctors, only: [:index, :show, :new, :create, :destroy] do
         resources :appointments, only: [:index, :show, :new, :create, :destroy]
-      end 
+      end
     end
   end
 end

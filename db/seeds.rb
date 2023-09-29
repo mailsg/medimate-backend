@@ -5,7 +5,7 @@ Doctor.destroy_all
 Appointment.destroy_all
 Specialization.destroy_all
 
-users = Array.new(10) do
+users = Array.new(50) do
   {
     username: Faker::Internet.unique.username,
     email: Faker::Internet.unique.email,
@@ -19,11 +19,14 @@ specializations = [
   { name: 'Cardiology' },
   { name: 'Dermatology' },
   { name: 'Orthopedics' },
+  { name: 'Optometry' },
+  { name: 'Ear' },
+  { name: 'Nose' },
+  { name: 'Throat' },
 ]
 
 Specialization.create!(specializations)
 
-# Seed Doctors
 doctors = Array.new(10) do
   {
     name: Faker::Name.name,
@@ -39,7 +42,7 @@ end
 
 Doctor.create!(doctors)
 
-appointments = Array.new(10) do
+appointments = Array.new(50) do
   {
     appointment_date: Faker::Date.forward(days: 30),
     appointment_time: Faker::Time.forward(days: 30),
