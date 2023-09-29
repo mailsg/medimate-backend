@@ -4,7 +4,7 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, :trackable, :omniauthable, :confirmable
   include DeviseTokenAuth::Concerns::User
-  has_many :doctors
-  has_many :appointments
+  has_many :doctors, dependent: :destroy
+  has_many :appointments, dependent: :destroy
   validates :username, :email, presence: true
 end

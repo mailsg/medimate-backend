@@ -5,6 +5,16 @@ Doctor.destroy_all
 Appointment.destroy_all
 Specialization.destroy_all
 
+users = Array.new(10) do
+  {
+    username: Faker::Internet.unique.username,
+    email: Faker::Internet.unique.email,
+    password: '123456',
+  }
+end
+
+User.create!(users)
+
 specializations = [
   { name: 'Cardiology' },
   { name: 'Dermatology' },
@@ -22,21 +32,12 @@ doctors = Array.new(10) do
     bio: Faker::Lorem.paragraph,
     fee_per_appointment: Faker::Number.decimal(l_digits: 2),
     specialization: Specialization.all.sample,
-    image: Faker::LoremFlickr.image
+    image: Faker::LoremFlickr.image,
+    user: User.all.sample
   }
 end
 
 Doctor.create!(doctors)
-
-users = Array.new(10) do
-  {
-    username: Faker::Internet.unique.username,
-    email: Faker::Internet.unique.email,
-    password: '123456',
-  }
-end
-
-User.create!(users)
 
 appointments = Array.new(10) do
   {
