@@ -19,6 +19,20 @@ class Api::V1::DoctorsController < ApplicationController
     end
   end
 
+  def destroy
+    user = current_user
+    @doctors = Doctor.all
+    @doctor = Doctor.find(params[:id])
+    if user.id == @doctor.user_id
+      @doctor.destroy
+      render json: @doctors
+    else
+      render json: { error: 'You cannot proceed with this operation' }, status: :unprocessable_entity
+    end
+  end
+
+  private
+
   def doctor_params
     params.require(:doctor).permit(:name, :time_available_from, :time_available_to, :bio, :fee_per_appointment, :specialization_id, :image, :user_id)
   end
