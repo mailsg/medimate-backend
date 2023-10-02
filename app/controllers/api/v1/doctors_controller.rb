@@ -1,6 +1,9 @@
 class Api::V1::DoctorsController < ApplicationController
+  before_action :authenticate_user!
+  authorize_resource
+  skip_authorize_resource only: %i[index show]
+
   def index
-    current_user
     render json: Doctor.all
   end
 
@@ -10,7 +13,6 @@ class Api::V1::DoctorsController < ApplicationController
   end
 
   def create
-    @user = current_user
     @doctor = user.doctors.build(doctor_params)
     if @doctor.save
       render json: @doctor, status: :created
@@ -20,7 +22,6 @@ class Api::V1::DoctorsController < ApplicationController
   end
 
   def destroy
-    user = current_user
     @doctors = Doctor.all
     @doctor = Doctor.find(params[:id])
     if user.id == @doctor.user_id
