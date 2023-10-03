@@ -41,18 +41,18 @@ class Api::V1::DoctorsController < ApplicationController
     # @doctors = Doctor.all
     @doctor = current_user.doctors.find(params[:id])
     # if user.id == @doctor.user_id
-      if @doctor.destroy
-        render json: { data: 'Doctor deleted successfully', status: 'Success' }, status: :ok
-      else
-        render json: { error: 'You cannot proceed with this operation' }, status: :unprocessable_entity
-      end
+    if @doctor.destroy
+      render json: { data: 'Doctor deleted successfully', status: 'Success' }, status: :ok
+    else
+      render json: { error: 'You cannot proceed with this operation' }, status: :unprocessable_entity
+    end
   end
 
   private
 
   def set_doctor
     @doctor = current_user.doctors.find(params[:id])
-  rescue ActiveRecord::RecordNotFound => error
+  rescue ActiveRecord::RecordNotFound => e
     render json: error.message, status: :unauthorized
   end
 

@@ -47,7 +47,7 @@ class Api::V1::AppointmentsController < ApplicationController
 
   def set_appointment
     @appointment = current_user.appointments.find(params[:id])
-  rescue ActiveRecord::RecordNotFound => error
+  rescue ActiveRecord::RecordNotFound => e
     render json: error.message, status: :unauthorized
   end
 

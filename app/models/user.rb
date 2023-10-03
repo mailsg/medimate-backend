@@ -11,6 +11,9 @@ class User < ActiveRecord::Base
   validates :username, :email, presence: true
 
   def jwt_payload
+    # This method is required by Devise to generate JWT tokens.
+    # It includes user-specific data in the token payload.
     super
+    # Add any additional user data you want to include in the JWT payload
   end
 end

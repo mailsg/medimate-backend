@@ -12,7 +12,9 @@ class RegistrationsController < Devise::RegistrationsController
         render json: { result: 'success_with_notice', notice: "signed_up_but_#{resource.inactive_message}" }
       end
     else
-      render json: { message: 'User could not be created successfully', errors: resource.errors.full_messages }, status: :unprocessable_entity
+      render json: { message: 'User could not be created successfully', 
+        errors: resource.errors.full_messages }, 
+        status: :unprocessable_entity
     end
   end
 
@@ -23,7 +25,9 @@ class RegistrationsController < Devise::RegistrationsController
     if resource_updated
       render json: { code: 200, message: 'Updated successfully', data: resource }, status: :ok
     else
-      render json: { message: 'User could not be updated', errors: resource.errors.full_messages }, status: :unprocessable_entity
+      render json: { message: 'User could not be updated', 
+        errors: resource.errors.full_messages }, 
+        status: :unprocessable_entity
     end
   end
 
