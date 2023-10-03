@@ -6,13 +6,13 @@ class RegistrationsController < Devise::RegistrationsController
     if resource.persisted?
       if resource.active_for_authentication?
         sign_up(resource_name, resource)
-        render json: { result: 'success', user: resource }
+        render json: { code: 200, message: 'Signed up successfully', data: resource }, status: :ok
       else
         expire_data_after_sign_in!
         render json: { result: 'success_with_notice', notice: "signed_up_but_#{resource.inactive_message}" }
       end
     else
-      render json: { result: 'failed', error: resource.errors }, status: :unprocessable_entity
+      render json: { message: 'User could not be created successfully', errors: resource.errors.full_messages }, status: :unprocessable_entity
     end
   end
 
@@ -21,15 +21,15 @@ class RegistrationsController < Devise::RegistrationsController
 
     resource_updated = update_resource(resource, account_update_params)
     if resource_updated
-      render json: { result: 'success', user: resource }
+      render json: { code: 200, message: 'Updated successfully', data: resource }, status: :ok
     else
-      render json: { result: 'failed', error: resource.errors }, status: :unprocessable_entity
+      render json: { message: 'User could not be updated', errors: resource.errors.full_messages }, status: :unprocessable_entity
     end
   end
 
   def destroy
     resource.destroy
-    render json: { result: 'success' }
+    render json: { code: 200, message: 'User deleted successfully', data: resource }, status: :ok
   end
 
   private

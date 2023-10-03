@@ -10,7 +10,7 @@ class Api::V1::AppointmentsController < ApplicationController
 
   # GET /api/v1/appointments/:id
   def show
-    render json: @appointment
+    render json: @appointment, status: :ok
   end
 
   # POST /api/v1/appointments
@@ -19,7 +19,7 @@ class Api::V1::AppointmentsController < ApplicationController
     if @appointment.save
       render json: @appointment, status: :created
     else
-      render json: { errors: @appointment.errors.full_messages }, status: :unprocessable_entity
+      render json: { errors: @appointment.errors.full_messages, status: 'Failed' }, status: :unprocessable_entity
     end
   end
 
@@ -36,14 +36,19 @@ class Api::V1::AppointmentsController < ApplicationController
   # DELETE /api/v1/appointments/:id
   def destroy
     @appointment = current_user.appointments.find(params[:id])
-    @appointment.destroy
-    render json: { result: 'Appointment deleted successfully' }
+    if @appointment.destroy
+      render json: { data: 'Appointment deleted successfully', status: 'Success' }, status: :ok
+    else
+      render json: { data: 'Something went wrong', status: 'Failed' }
+    end
   end
 
   private
 
   def set_appointment
     @appointment = current_user.appointments.find(params[:id])
+  rescue ActiveRecord::RecordNotFound => error
+    render json: error.message, status: :unauthorized
   end
 
   def appointment_params

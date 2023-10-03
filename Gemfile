@@ -81,7 +81,7 @@ group :test do
 end
 
 gem 'devise'
-# gem 'devise_token_auth'
+gem 'devise-jwt'
 gem 'faker'
 gem 'omniauth'
 gem 'rack-cors'
