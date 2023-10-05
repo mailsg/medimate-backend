@@ -58,6 +58,6 @@ class Api::V1::DoctorsController < ApplicationController
 
   def doctor_params
     params.require(:doctor).permit(:name, :time_available_from, :time_available_to, :bio, :fee_per_appointment,
-                                   :specialization_id, :image)
+                                   :specialization_id, :image, :location)
   end
 end
