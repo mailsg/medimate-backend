@@ -6,7 +6,8 @@ RSpec.describe Appointment, type: :model do
       @user1 = User.new(username: 'Lorem Ipsum', email: 'lorem@ipsum.com', password: '123456',
                         password_confirmation: '123456')
       @doctor1 = Doctor.new(name: 'Dr. Dolittle', location: 'USA', specialization_id: 10, fee_per_appointment: 400,
-                            bio: '10 Years of experience', time_available_from: '08:00:00', time_available_to: '20:00:00')
+                            bio: '10 Years of experience', time_available_from: '08:00:00', 
+                            time_available_to: '20:00:00')
       Appointment.new(user_id: @user1.id, doctor_id: @doctor1.id, appointment_date: '27-01-2023',
                       appointment_time: '12:40:00', duration: '30')
     end
