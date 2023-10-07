@@ -1,19 +1,18 @@
 class Api::V1::DoctorsController < ApplicationController
   before_action :authenticate_user!
-  # authorize_resource
-  # skip_authorize_resource only: %i[index show]
   before_action :set_doctor, only: %i[show update destroy]
 
   # GET /api/v1/doctors
   def index
-    @doctors = current_user.doctors
-    render json: @doctors
+    @doctors = current_user.doctors.includes(:specialization)
+    render json: @doctors.to_json(include: :specialization)
   end
 
   # GET /api/v1/doctors/:id
   def show
     # @doctor = Doctor.find(params[:id])
-    render json: @doctor, status: :ok
+    @doctor = Doctor.includes(:specialization).find(params[:id])
+    render json: @doctor.to_json(include: :specialization)
   end
 
   # POST /api/v1/doctors
@@ -38,9 +37,7 @@ class Api::V1::DoctorsController < ApplicationController
 
   # DELETE /api/v1/doctors/:id
   def destroy
-    # @doctors = Doctor.all
     @doctor = current_user.doctors.find(params[:id])
-    # if user.id == @doctor.user_id
     if @doctor.destroy
       render json: { data: 'Doctor deleted successfully', status: 'Success' }, status: :ok
     else

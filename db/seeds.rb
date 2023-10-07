@@ -55,7 +55,8 @@ doctors = Array.new(10) do
     fee_per_appointment: Faker::Number.decimal(l_digits: 2),
     specialization: Specialization.all.sample,
     image: Faker::LoremFlickr.image,
-    user: User.all.sample
+    user: User.all.sample,
+    location: Faker::Address.city
   }
 end
 
