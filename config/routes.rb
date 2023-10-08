@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  mount Rswag::Ui::Engine => '/api-docs'
+  mount Rswag::Api::Engine => '/api-docs'
   # mount_devise_token_auth_for 'User', at: 'auth'
   # devise_for :users, skip: %i[registrations sessions passwords]
   # devise_scope :user do
@@ -21,6 +23,7 @@ Rails.application.routes.draw do
     namespace :v1, defaults: { format: 'json' } do
       resources :doctors, only: [:index, :show, :new, :create, :destroy] 
       resources :appointments, only: [:index, :show, :new, :create, :destroy]
+      resources :specializations, only: [:index, :create]
     end
   end
 end

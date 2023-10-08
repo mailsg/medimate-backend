@@ -1,0 +1,553 @@
+openapi: 3.0.1
+info:
+  title: API V1
+  version: v1
+  servers:
+    - url: http://localhost:3000
+
+  components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+paths:
+  '/users':
+    post:
+      summary: User sign up route. Using this route a new user can be created.
+      tags:
+        - Register New Users
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user:
+                  type: object
+                  properties:
+                    username:
+                      type: string
+                    email:
+                      type: string
+                    password:
+                      type: string  # Change from 'password' to 'string'
+                    password_confirmation:
+                      type: string  # Change from 'password' to 'string'
+                  required:
+                    - username
+                    - email
+                    - password
+                    - password_confirmation
+      responses:
+        '201':
+          description: User signed up successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    example: 200
+                  message:
+                    type: string
+                    example: Signed up successfully
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        example: 51
+                      provider:
+                        type: string
+                        example: email
+                      uid:
+                        type: string
+                        example: ""
+                      allow_password_change:
+                        type: boolean
+                        example: false
+                      username:
+                        type: string
+                        example: username
+                      email:
+                        type: string
+                        example: username@mail.com
+                      tokens:
+                        type: null  # This is null based on your data
+                      created_at:
+                        type: string
+                        format: date-time
+                        example: "2023-10-03T09:37:33.489Z"
+                      updated_at:
+                        type: string
+                        format: date-time
+                        example: "2023-10-03T09:37:33.628Z"
+                      jti:
+                        type: string
+                        example: d22a1158-d05f-4709-b49e-3d6c3cfec1b7
+
+  '/users/sign_in':
+    post:
+      summary: User sign in
+      tags:
+        - Sign In
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user:
+                  type: object
+                  properties:
+                    email:
+                      type: string
+                    password:
+                      type: string
+                  required:
+                    - email
+                    - password
+      responses:
+        '200':
+          description: User signed in successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: object
+                    properties:
+                      code:
+                        type: integer
+                        example: 200
+                      message:
+                        type: string
+                        example: User signed in successfully
+                      data:
+                        type: object
+                        properties:
+                          id:
+                            type: integer
+                            example: 51
+                          provider:
+                            type: string
+                            example: email
+                          uid:
+                            type: string
+                            example: ""
+                          allow_password_change:
+                            type: boolean
+                            example: false
+                          username:
+                            type: string
+                            example: username
+                          email:
+                            type: string
+                            example: username@mail.com
+                          tokens:
+                            type: null
+                          created_at:
+                            type: string
+                            format: date-time
+                            example: "2023-10-03T09:37:33.489Z"
+                          updated_at:
+                            type: string
+                            format: date-time
+                            example: "2023-10-03T09:37:33.628Z"
+                          jti:
+                            type: string
+                            example: d22a1158-d05f-4709-b49e-3d6c3cfec1b7
+  '/api/v1/doctors':
+    post:
+      summary: Create a new doctor under a signed-in user.
+      tags:
+        - Doctors
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                doctor:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                    time_available_from:
+                      type: string
+                      format: time
+                    time_available_to:
+                      type: string
+                      format: time
+                    bio:
+                      type: string
+                    fee_per_appointment:
+                      type: string
+                    specialization_id:
+                      type: integer
+                    image:
+                      type: string
+                    location:
+                      type: string
+                  required:
+                    - name
+                    - time_available_from
+                    - time_available_to
+                    - bio
+                    - fee_per_appointment
+                    - specialization_id
+                    - image
+                    - location
+      responses:
+        '201':
+          description: Doctor created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    example: 11
+                  name:
+                    type: string
+                    example: Dr. First Doctor
+                  time_available_from:
+                    type: string
+                    format: date-time
+                    example: "2000-01-01T10:00:00.000Z"
+                  time_available_to:
+                    type: string
+                    format: date-time
+                    example: "2000-01-01T20:00:00.000Z"
+                  bio:
+                    type: string
+                    example: 20 years of exp
+                  fee_per_appointment:
+                    type: string
+                    example: "$15"
+                  specialization_id:
+                    type: integer
+                    example: 5
+                  created_at:
+                    type: string
+                    format: date-time
+                    example: "2023-10-03T09:40:19.747Z"
+                  updated_at:
+                    type: string
+                    format: date-time
+                    example: "2023-10-03T09:40:19.747Z"
+                  image:
+                    type: string
+                    example: https://image.com
+                  location:
+                    type: string
+                    example: USA
+                  user_id:
+                    type: integer
+                    example: 51
+    get:
+      summary: Show all doctors under a signed-in user.
+      tags:
+        - Doctors
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Successful retrieval of doctors
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                      example: 11
+                    name:
+                      type: string
+                      example: Dr. First Doctor
+                    time_available_from:
+                      type: string
+                      format: date-time
+                      example: "2000-01-01T10:00:00.000Z"
+                    time_available_to:
+                      type: string
+                      format: date-time
+                      example: "2000-01-01T20:00:00.000Z"
+                    bio:
+                      type: string
+                      example: 20 years of exp
+                    fee_per_appointment:
+                      type: string
+                      example: "$15"
+                    specialization_id:
+                      type: integer
+                      example: 5
+                    created_at:
+                      type: string
+                      format: date-time
+                      example: "2023-10-03T09:40:19.747Z"
+                    updated_at:
+                      type: string
+                      format: date-time
+                      example: "2023-10-03T09:40:19.747Z"
+                    image:
+                      type: string
+                      example: https://image.com
+                    location:
+                      type: string
+                      example: USA
+                    user_id:
+                      type: integer
+                      example: 51
+  '/api/v1/doctors/{doctor_id}':
+    get:
+      summary: Show doctors by doctor_id under a signed-in user.
+      tags:
+        - Doctors
+      parameters:
+        - name: doctor_id
+          in: path
+          required: true
+          description: The ID of the doctor to retrieve
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successful retrieval of doctors
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    example: 11
+                  name:
+                    type: string
+                    example: Dr. First Doctor
+                  time_available_from:
+                    type: string
+                    format: date-time
+                    example: "2000-01-01T10:00:00.000Z"
+                  time_available_to:
+                    type: string
+                    format: date-time
+                    example: "2000-01-01T20:00:00.000Z"
+                  bio:
+                    type: string
+                    example: 20 years of exp
+                  fee_per_appointment:
+                    type: string
+                    example: "$15"
+                  specialization_id:
+                    type: integer
+                    example: 5
+                  created_at:
+                    type: string
+                    format: date-time
+                    example: "2023-10-03T09:40:19.747Z"
+                  updated_at:
+                    type: string
+                    format: date-time
+                    example: "2023-10-03T09:40:19.747Z"
+                  image:
+                    type: string
+                    example: https://image.com
+                  location:
+                    type: string
+                    example: USA
+                  user_id:
+                    type: integer
+                    example: 51
+  '/api/v1/appointments':
+    post:
+      summary: Create appointment for a doctor under a signed-in user.
+      tags:
+        - Appointments
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                appointment:
+                  type: object
+                  properties:
+                    appointment_date:
+                      type: string
+                      format: date
+                    appointment_time:
+                      type: string
+                      format: time
+                    duration:
+                      type: integer
+                    doctor_id:
+                      type: integer
+                  required:
+                    - appointment_date
+                    - appointment_time
+                    - duration
+                    - doctor_id
+      responses:
+        '201':
+          description: Appointment created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    example: 51
+                  appointment_date:
+                    type: string
+                    format: date
+                    example: "2023-10-03"
+                  appointment_time:
+                    type: string
+                    format: date-time
+                    example: "2000-01-01T14:30:00.000Z"
+                  duration:
+                    type: integer
+                    example: 30
+                  user_id:
+                    type: integer
+                    example: 51
+                  doctor_id:
+                    type: integer
+                    example: 11
+                  created_at:
+                    type: string
+                    format: date-time
+                    example: "2023-10-03T09:41:45.235Z"
+                  updated_at:
+                    type: string
+                    format: date-time
+                    example: "2023-10-03T09:41:45.235Z"
+
+    get:
+      summary: Show all Appointments under a signed-in user.
+      tags:
+        - Appointments
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Successful retrieval of appointments
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                      example: 51
+                    appointment_date:
+                      type: string
+                      format: date
+                      example: "2023-10-03"
+                    appointment_time:
+                      type: string
+                      format: date-time
+                      example: "2000-01-01T14:30:00.000Z"
+                    duration:
+                      type: integer
+                      example: 30
+                    user_id:
+                      type: integer
+                      example: 51
+                    doctor_id:
+                      type: integer
+                      example: 11
+                    created_at:
+                      type: string
+                      format: date-time
+                      example: "2023-10-03T09:41:45.235Z"
+                    updated_at:
+                      type: string
+                      format: date-time
+                      example: "2023-10-03T09:41:45.235Z"
+
+  '/api/v1/appointments/{appointment_id}':
+    get:
+      summary: Show Appointment by id under a signed-in user.
+      tags:
+        - Appointments
+      parameters:
+        - name: appointment_id
+          in: path
+          required: true
+          description: The ID of the appointment to retrieve
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successful retrieval of the appointment
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    example: 51
+                  appointment_date:
+                    type: string
+                    format: date
+                    example: "2023-10-03"
+                  appointment_time:
+                    type: string
+                    format: date-time
+                    example: "2000-01-01T14:30:00.000Z"
+                  duration:
+                    type: integer
+                    example: 30
+                  user_id:
+                    type: integer
+                    example: 51
+                  doctor_id:
+                    type: integer
+                    example: 11
+                  created_at:
+                    type: string
+                    format: date-time
+                    example: "2023-10-03T09:41:45.235Z"
+                  updated_at:
+                    type: string
+                    format: date-time
+                    example: "2023-10-03T09:41:45.235Z"
+  '/users/sign_out':
+    delete:
+      summary: User sign out
+      tags:
+        - Sign Out
+      # requestBody:
+      #   required: true
+      #   content:
+      #     application/json:
+      #       schema:
+      #         type: object
+      #         properties:
+      #           Authorization:
+      #             type: string
+      #             description: The Authorization token to sign out.
+      responses:
+        '204':
+          description: User signed out successfully
