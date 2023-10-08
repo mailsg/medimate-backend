@@ -538,16 +538,14 @@ paths:
       summary: User sign out
       tags:
         - Sign Out
-      # requestBody:
-      #   required: true
-      #   content:
-      #     application/json:
-      #       schema:
-      #         type: object
-      #         properties:
-      #           Authorization:
-      #             type: string
-      #             description: The Authorization token to sign out.
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: Authorization
+          in: header
+          description: Bearer token
+          required: true
+          type: string
       responses:
         '204':
           description: User signed out successfully

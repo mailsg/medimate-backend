@@ -1,0 +1,19 @@
+databases:
+  - name: medimate_backend_app
+    plan: free
+    databaseName: medimate_backend_db
+    user: medimate_backend_user
+
+services:
+  - type: web
+    name: medimate_backend_sandeep
+    runtime: ruby
+    buildCommand: "./bin/render-build.sh"
+    startCommand: "bundle exec puma -C config/puma.rb"
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: medimate_backend_app
+          property: connectionString
+      - key: RAILS_MASTER_KEY
+        sync: false
