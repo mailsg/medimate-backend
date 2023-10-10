@@ -4,8 +4,8 @@ class Api::V1::AppointmentsController < ApplicationController
 
   # GET /api/v1/appointments
   def index
-    @appointments = current_user.appointments
-    render json: @appointments
+    @appointments = current_user.appointments.includes(:doctor)
+    render json: @appointments.to_json(include: :doctor)
   end
 
   # GET /api/v1/appointments/:id
