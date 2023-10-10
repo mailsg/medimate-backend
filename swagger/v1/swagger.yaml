@@ -371,6 +371,23 @@ paths:
                   user_id:
                     type: integer
                     example: 51
+  '/api/v1/doctors/{id}':
+    delete:
+      summary: Delete a doctor which was added by a signed in user.
+      tags:
+        - Delete a doctor
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: doctor_id
+          in: path
+          required: true
+          description: The ID of the doctor to be deleted
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Doctor deleted successfully
   '/api/v1/appointments':
     post:
       summary: Create appointment for a doctor under a signed-in user.
@@ -533,21 +550,36 @@ paths:
                     type: string
                     format: date-time
                     example: "2023-10-03T09:41:45.235Z"
+  '/api/v1/appointments/{id}':
+    delete:
+      summary: Delete an appointment for a doctor which was added by a signed in user.
+      tags:
+        - Delete an appointment
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: appointment_id
+          in: path
+          required: true
+          description: The ID of the appointment to be deleted
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Appointment deleted successfully
   '/users/sign_out':
     delete:
       summary: User sign out
       tags:
         - Sign Out
-      # requestBody:
-      #   required: true
-      #   content:
-      #     application/json:
-      #       schema:
-      #         type: object
-      #         properties:
-      #           Authorization:
-      #             type: string
-      #             description: The Authorization token to sign out.
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: Authorization
+          in: header
+          description: Bearer token
+          required: true
+          type: string
       responses:
         '204':
           description: User signed out successfully
