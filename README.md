@@ -127,9 +127,17 @@ Install this project by executing the following commands. Since its an Open API,
       DB_USERNAME=`Your PostgreSQL username`
       DB_PASSWORD=`Your PostgreSQL password`
 
-  rails db:create
-  rails db:migrate
-  rails db:seed
+  To generate keys when master.key file is missing in the repo:
+  
+    1. Remove config/master.key and config/credentials.yml.enc if they exist.
+    2. Run in the terminal: EDITOR=code rails credentials:edit 
+    3. Close the editor that opens.
+    4. This command will create a new master.key and credentials.yml.enc if they do not exist.
+    5. Run the commands below to create the database
+  
+    rails db:create
+    rails db:migrate
+    rails db:seed
 ```
 
 ### Usage
