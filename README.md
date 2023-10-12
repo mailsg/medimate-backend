@@ -16,6 +16,7 @@
     - [Tech Stack](#tech-stack)
     - [Key Features](#key-features)
   - [🚀 Live Demo](#live-demo)
+  - [Kanban Board](#kanban-board)
 - [💻 Getting Started](#getting-started)
   - [Setup](#setup)
   - [Prerequisites](#prerequisites)
@@ -33,7 +34,10 @@
 
 # MediMate <a name="about-project"></a>
 
-**MediMate** is an app to book an appointment with a doctor. It is built as a two part app. This is the backend part of the app. The front end part of this app can be found [here](https://github.com/mailsg/medimate-frontend).
+**MediMate** is an app to book an appointment with a doctor. It is built as a two part app. This is the backend part of the app. The front end part of this app can be found [here](https://github.com/mailsg/medimate-frontend). The team members of this project are
+- **Charles Andrews**
+- **Emmanuel Tofa**
+- **Sandeep Ghosh**
 
 ## 🛠 Built With <a name="built-with"></a>
 
@@ -66,7 +70,7 @@
 
 - **API Endpoints to login a user**
 - **API Endpoints to book appointments**
-- **Simple User Interface**
+- **API deployment**
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -74,11 +78,14 @@
 
 ## 🚀 Live Demo <a name="live-demo"></a>
 
-- [Live Demo Link](https://google.com)
+- [Live Backend Link](https://medimate-backend-p22y.onrender.com)
 
-## 🚀 Presentation <a name="live-demo"></a>
+## Kanban Board <a name="kanban-board"></a>
 
-- [Presentation](https://google.com)
+- [Link to the project kanban board](https://github.com/users/mailsg/projects/7)
+
+
+- ![Merged_document](https://github.com/mailsg/medimate-backend/assets/105475440/533bacc1-6805-4b99-8685-229e0f3c97ab)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -107,11 +114,21 @@ Clone this repository to your desired folder:
 
 ### Install
 
-Install this project with:
+Install this project by executing the following commands. Since its an Open API, there is no need to set up any API keys:
 
 ```sh
   cd medimate-backend
-  gem install
+
+  bundle install
+
+  touch .env
+    `Add the following lines to the .env file`
+      DB_USERNAME=`Your PostgreSQL username`
+      DB_PASSWORD=`Your PostgreSQL password`
+
+  rails db:create
+  rails db:migrate
+  rails db:seed
 ```
 
 ### Usage
