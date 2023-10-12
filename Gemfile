@@ -38,6 +38,9 @@ gem 'jbuilder'
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
 # gem "bcrypt", "~> 3.1.7"
 
+# manually installed gem...
+gem 'dotenv-rails'
+
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 
@@ -57,6 +60,8 @@ end
 
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
+  gem 'letter_opener'
+  gem 'rswag-specs'
   gem 'web-console'
 
   # Add speed badges [https://github.com/MiniProfiler/rack-mini-profiler]
@@ -69,6 +74,19 @@ end
 group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem 'capybara'
+  gem 'database_cleaner'
+  gem 'rails-controller-testing'
+  gem 'rspec-rails'
   gem 'selenium-webdriver'
   gem 'webdrivers'
 end
+
+gem 'devise'
+gem 'devise-jwt'
+gem 'faker'
+gem 'omniauth'
+gem 'rack-cors'
+gem 'rswag'
+gem 'rswag-api'
+gem 'rswag-ui'
+gem 'sprockets'
