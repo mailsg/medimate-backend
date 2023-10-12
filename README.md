@@ -79,6 +79,7 @@
 ## 🚀 Live Demo <a name="live-demo"></a>
 
 - [Live Backend Link](https://medimate-backend-p22y.onrender.com)
+- [API Documentation](https://medimate-backend-p22y.onrender.com/api-docs)
 
 ## Kanban Board <a name="kanban-board"></a>
 
